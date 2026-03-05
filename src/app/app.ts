@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {JokeFacade} from './services/joke-facade';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +8,16 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
+  #facade = inject(JokeFacade);
+
+  ngOnInit(): void {
+    this.#facade.latestJokes$.subscribe();
+
+    this.#facade.startGettingRandomJokes();
+
+    setTimeout(() => {
+      this.#facade.stopGettingRandomJokes();
+    }, 5000);
+  }
 }
