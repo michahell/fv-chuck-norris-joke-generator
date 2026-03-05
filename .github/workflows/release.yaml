@@ -7,6 +7,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      Greeting: Hello
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v4
@@ -15,5 +17,6 @@ jobs:
       - run: npm install
       - run: npm run test
       - run: npm run build
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
       - run: npm set "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}"
       - run: npm publish
