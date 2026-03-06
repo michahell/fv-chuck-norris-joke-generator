@@ -1,6 +1,6 @@
 {
   "name": "@michahell/fv-chuck-norris-joke-generator",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/michahell/fv-chuck-norris-generator.git"
