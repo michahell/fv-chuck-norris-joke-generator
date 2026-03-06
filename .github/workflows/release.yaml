@@ -46,7 +46,7 @@ jobs:
           npm version minor -m "create tagged release %s" --force
 
           # store that tag in github output for later use
-          echo "TAG_NAME=v$(node -p \"require('./package.json').version\")" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=v$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
           # push created release version commit and tags
           git push --force && git push --tags --force
