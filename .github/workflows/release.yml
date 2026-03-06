@@ -16,7 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Retrieve version
-        run: echo "TAG_NAME=$(git describe --tags --abbrev=0)')" >> $GITHUB_OUTPUT
+        run: |
+          git fetch --tags
+          echo "TAG_NAME=$(git describe --tags --abbrev=0)')" >> $GITHUB_OUTPUT
         id: version
       - name: create release
         uses: softprops/action-gh-release@v2
