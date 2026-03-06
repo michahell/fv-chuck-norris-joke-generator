@@ -1,6 +1,7 @@
-<h2 class="text-lg mt-5 mb-5">Jokes</h2>
+<h2 class="text-lg mt-2 mb-2">Jokes</h2>
 <div class="grid grid-flow-col justify-items-center">
   <button
+    data-test="start-fetching-jokes"
     class="btn btn-sm btn-primary"
     [attr.disabled]="fetchingJokes() ? 'disabled' : null"
     (click)="startGettingRandomJokes()"
@@ -8,6 +9,7 @@
     (re)start fetching jokes
   </button>
   <button
+    data-test="stop-fetching-jokes"
     class="btn btn-sm btn-secondary"
     [attr.disabled]="!fetchingJokes() ? 'disabled' : null"
     (click)="stopGettingRandomJokes()"
@@ -17,15 +19,29 @@
 </div>
 <div class="divider"></div>
 
-<div class="m-5 p-5 text-base-content">
+<div class="p-2 text-base-content rounded-md">
   @for(joke of latestJokes(); track $index) {
     @if (joke.visibleInStream) {
       <app-joke
         [joke]="joke"
+        (favourited)="onFavourite(joke, $event)"
       ></app-joke>
     }
   } @empty {
     <p>Loading first joke...</p>
   }
 </div>
+
+<!-- max number of favourites reached -->
+<dialog id="maxFavouritesWarningModal" class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">Computer says no!</h3>
+    <p class="py-4">You are not allowed to favourite more then 10 jokes!</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 

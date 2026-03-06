@@ -1,1 +1,10 @@
-<p>favourites works!</p>
+<h2 class="text-lg mt-2 mb-2">Favourites</h2>
+<div class="divider"></div>
+
+<div class="p-2 bg-base-100 border-base-300 text-base-content rounded-md">
+  @for(joke of favouriteJokes(); track $index) {
+    <app-joke [joke]="joke" (favourited)="onRemoveFavourite(joke)"></app-joke>
+  } @empty {
+    <p>No joke favourited! <br/>favourite a joke first in the stream.</p>
+  }
+</div>
