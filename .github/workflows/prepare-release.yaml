@@ -20,16 +20,10 @@ jobs:
       - run: npm run build
       - name: create new tag
         run: |
-          # use npm version to update version in package.json
-          npm version minor --no-git-tag-version
           # setup local git config user and e-mail
           git config --local user.email "action@github.com"
           git config --local user.name "release workflow action"
-          # read package.json, store and print version
-          VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "The value of VERSION is $VERSION"
-          # tag
-          git tag -a "v${{ env.VERSION }}" -m "release v${{ env.VERSION }}"
-          # push tag
-          git push origin "v${{ env.VERSION }}"
+          # use npm version to update version in package.json
+          npm version minor
+          # push commit and tags
+          git push && git push --tags
