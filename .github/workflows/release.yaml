@@ -22,11 +22,14 @@ jobs:
         continue-on-error: true
       - run: npm run build
         continue-on-error: false
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r dist.zip dist/chuckNorrisJokeGenerator/browser/**/*
       - name: store build output
         uses: actions/upload-artifact@v7
         with:
           name: dist
-          path: 'dist/chuckNorrisJokeGenerator'
+          path: 'dist.zip'
           retention-days: 1
 
   create-release:
@@ -51,7 +54,7 @@ jobs:
           echo "TAG_NAME=v$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
 
           # push created release version commit and tags
-          git push --force && git push --tags --force
+          git push --tags --force
       - name: download dist
         uses: actions/download-artifact@v8
         with:
@@ -60,4 +63,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.TAG_NAME }}
-          files: 'browser/**/*'
+          files: 'dist.zip'
