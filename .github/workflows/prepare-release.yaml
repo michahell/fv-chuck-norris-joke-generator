@@ -10,6 +10,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    continue-on-error: false
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
@@ -27,3 +28,6 @@ jobs:
           npm version minor -m "create tagged release %s" --force
           # push created release version commit and tags
           git push --force && git push --tags --force
+          # merge release back to main
+          git checkout main
+          git merge release
