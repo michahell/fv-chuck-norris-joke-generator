@@ -26,4 +26,4 @@ jobs:
           # use npm version to update version in package.json
           npm version minor
           # push commit and tags
-          git push && git push --tags
+          git push --force && git push --tags --force
