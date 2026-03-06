@@ -11,15 +11,16 @@ permissions:
 jobs:
   prepare-release:
     runs-on: ubuntu-latest
-    continue-on-error: false
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: '24.14.0'
       - run: npm install
+        continue-on-error: false
       - run: npm run test
       - run: npm run build
+        continue-on-error: false
       - name: store build output
         uses: actions/upload-artifact@v7
         with:
