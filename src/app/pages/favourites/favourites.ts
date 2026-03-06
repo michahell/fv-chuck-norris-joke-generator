@@ -8,7 +8,6 @@ import {Joke} from '../../components/joke/joke';
   selector: 'app-favourites',
   imports: [Joke],
   templateUrl: './favourites.html',
-  styleUrl: './favourites.css',
 })
 export default class Favourites implements OnInit {
   #jokeFacade = inject(JokeFacade);

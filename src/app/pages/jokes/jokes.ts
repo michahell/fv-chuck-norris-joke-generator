@@ -8,7 +8,6 @@ import {JokeViewModel} from '../../services/jokes.model';
   selector: 'app-jokes',
   imports: [Joke],
   templateUrl: './jokes.html',
-  styleUrl: './jokes.css',
 })
 export default class Jokes implements OnInit {
   #facade = inject(JokeFacade);
