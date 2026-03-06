@@ -1,0 +1,57 @@
+name: release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ 'release' ]
+
+permissions:
+  contents: write
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.14.0'
+      - run: npm install
+      - run: npm run test
+      - run: npm run build
+      - name: store build output
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: 'dist/chuckNorrisJokeGenerator/browser'
+          retention-days: 1
+      - name: create new tag
+        run: |
+          # setup local git config user and e-mail
+          git config --local user.email "action@github.com"
+          git config --local user.name "release workflow action"
+          # use npm version to update version in package.json
+          npm version minor -m "create tagged release %s" --force
+          # push created release version commit and tags
+          git push --force && git push --tags --force
+
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+      - name: Retrieve latest tag
+        run: |
+          git fetch --tags
+          echo "TAG_NAME=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+        id: version
+      - name: download dist
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.TAG_NAME }}
+          files: 'dist/**/*'
