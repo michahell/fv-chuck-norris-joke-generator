@@ -24,6 +24,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "release workflow action"
           # use npm version to update version in package.json
-          npm version minor
-          # push commit and tags
-          git push --force && git push --tags --force
+          npm version minor -m "create tagged release %s" --force
