@@ -24,7 +24,7 @@ jobs:
         continue-on-error: false
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r dist.zip dist/chuckNorrisJokeGenerator/browser/**/*
+          args: zip -qq -r dist.zip dist/chuckNorrisJokeGenerator/browser
       - name: store build output
         uses: actions/upload-artifact@v7
         with:
