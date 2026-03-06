@@ -22,7 +22,7 @@ jobs:
       - name: create new tag
         run: |
           # use npm version to update version in package.json
-          npm version minor
+          npm version minor --no-git-tag-version
           # setup local git config user and e-mail
           git config --local user.email "action@github.com"
           git config --local user.name "release workflow action"
