@@ -1,6 +1,7 @@
 name: release
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: [ prepare release ]
     types:
@@ -21,4 +22,4 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.TAG_NAME }}
-          files: './dist/chuckNorrisJokeGenerator/browser/**/*'
+          files: 'dist/chuckNorrisJokeGenerator/browser/**/*'
