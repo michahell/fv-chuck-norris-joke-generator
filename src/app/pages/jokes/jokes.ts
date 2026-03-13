@@ -1,13 +1,13 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
-import {JokeFacade} from '../../services/joke-facade';
-import {toSignal} from '@angular/core/rxjs-interop';
-import {Joke} from '../../components/joke/joke';
-import {JokeViewModel} from '../../services/jokes.model';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { JokeFacade } from '../../services/joke-facade';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Joke } from '../../components/joke/joke';
+import { JokeViewModel } from '../../services/jokes.model';
 
 @Component({
   selector: 'app-jokes',
   imports: [Joke],
-  templateUrl: './jokes.html'
+  templateUrl: './jokes.html',
 })
 export default class Jokes implements OnInit, OnDestroy {
   #facade = inject(JokeFacade);
@@ -32,7 +32,9 @@ export default class Jokes implements OnInit, OnDestroy {
   onFavourite(joke: JokeViewModel, newFavourite: boolean): void {
     if (this.#facade.getNumFavourites() > 10) {
       // eslint-disable-next-line
-      const modal: HTMLElement & { showModal: Function } | null = document.getElementById('maxFavouritesWarningModal') as HTMLElement & { showModal: Function };
+      const modal: (HTMLElement & { showModal: Function }) | null = document.getElementById(
+        'maxFavouritesWarningModal'
+      ) as HTMLElement & { showModal: Function };
       return modal.showModal();
     }
     this.#facade.setFavourite(joke, newFavourite);

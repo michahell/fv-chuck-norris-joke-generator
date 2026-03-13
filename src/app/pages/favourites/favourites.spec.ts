@@ -22,7 +22,7 @@ describe('Favourites', () => {
     updated_at: '',
     url: '',
     isFavourite: true,
-    visibleInStream: true
+    visibleInStream: true,
   };
 
   beforeEach(async () => {
@@ -31,14 +31,12 @@ describe('Favourites', () => {
       favourites$: favouritesSubject.asObservable(),
       stopGettingRandomJokes: vi.fn(),
       loadFavouritesFromLocalStorage: vi.fn(),
-      setFavourite: vi.fn()
+      setFavourite: vi.fn(),
     };
 
     await TestBed.configureTestingModule({
       imports: [Favourites],
-      providers: [
-        { provide: JokeFacade, useValue: facadeMock }
-      ]
+      providers: [{ provide: JokeFacade, useValue: facadeMock }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Favourites);

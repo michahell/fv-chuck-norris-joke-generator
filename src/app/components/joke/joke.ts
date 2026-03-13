@@ -1,5 +1,5 @@
-import {Component, computed, input, output} from '@angular/core';
-import {JokeViewModel} from '../../services/jokes.model';
+import { Component, computed, input, output } from '@angular/core';
+import { JokeViewModel } from '../../services/jokes.model';
 
 @Component({
   selector: 'app-joke',

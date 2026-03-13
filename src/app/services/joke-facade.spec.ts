@@ -4,7 +4,7 @@ import { JokeService } from './joke-service';
 import { of } from 'rxjs';
 import { JokeApiResponse, JokeViewModel } from './jokes.model';
 import { vi } from 'vitest';
-import {JOKE_REFRESH_RATE_SECONDS} from '../app.constants';
+import { JOKE_REFRESH_RATE_SECONDS } from '../app.constants';
 
 describe('JokeFacade', () => {
   let facade: JokeFacade;
@@ -18,19 +18,16 @@ describe('JokeFacade', () => {
     created_at: '',
     icon_url: '',
     updated_at: '',
-    url: ''
+    url: '',
   };
 
   beforeEach(() => {
     jokeServiceMock = {
-      getRandomJoke: vi.fn().mockReturnValue(of(mockJokeApiResponse))
+      getRandomJoke: vi.fn().mockReturnValue(of(mockJokeApiResponse)),
     };
 
     TestBed.configureTestingModule({
-      providers: [
-        JokeFacade,
-        { provide: JokeService, useValue: jokeServiceMock }
-      ]
+      providers: [JokeFacade, { provide: JokeService, useValue: jokeServiceMock }],
     });
 
     facade = TestBed.inject(JokeFacade);
@@ -48,7 +45,7 @@ describe('JokeFacade', () => {
     expect(jokeServiceMock.getRandomJoke).toHaveBeenCalled();
 
     let currentJokes: JokeViewModel[] = [];
-    facade.latestJokes$.subscribe(jokes => currentJokes = jokes);
+    facade.latestJokes$.subscribe(jokes => (currentJokes = jokes));
 
     expect(currentJokes.length).toBeGreaterThan(0);
     expect(currentJokes[0].value).toBe('Funny joke');
@@ -92,7 +89,7 @@ describe('JokeFacade', () => {
     await new Promise(resolve => setTimeout(resolve, JOKE_REFRESH_RATE_SECONDS + 100));
 
     let currentJokes: JokeViewModel[] = [];
-    facade.latestJokes$.subscribe(jokes => currentJokes = jokes);
+    facade.latestJokes$.subscribe(jokes => (currentJokes = jokes));
 
     expect(currentJokes.length).toBeGreaterThanOrEqual(2);
 
@@ -100,14 +97,18 @@ describe('JokeFacade', () => {
   });
 
   it('should set a joke as favourite', () => {
-    const joke: JokeViewModel = { ...mockJokeApiResponse, isFavourite: false, visibleInStream: true };
+    const joke: JokeViewModel = {
+      ...mockJokeApiResponse,
+      isFavourite: false,
+      visibleInStream: true,
+    };
     // Need to have the joke in the state first for updateJokeListWithFavourites to work effectively,
     // although it works on the value property
 
     facade.setFavourite(joke, true);
 
     let favourites: JokeViewModel[] = [];
-    facade.favourites$.subscribe(f => favourites = f);
+    facade.favourites$.subscribe(f => (favourites = f));
 
     expect(favourites.length).toBe(1);
     expect(favourites[0].isFavourite).toBe(true);
@@ -115,7 +116,11 @@ describe('JokeFacade', () => {
   });
 
   it('should remove a joke from favourites', () => {
-    const joke: JokeViewModel = { ...mockJokeApiResponse, isFavourite: true, visibleInStream: true };
+    const joke: JokeViewModel = {
+      ...mockJokeApiResponse,
+      isFavourite: true,
+      visibleInStream: true,
+    };
 
     // Pre-populate
     facade.setFavourite(joke, true);
@@ -124,7 +129,7 @@ describe('JokeFacade', () => {
     facade.setFavourite(joke, false);
 
     let favourites: JokeViewModel[] = [];
-    facade.favourites$.subscribe(f => favourites = f);
+    facade.favourites$.subscribe(f => (favourites = f));
 
     expect(favourites.length).toBe(0);
     expect(JSON.parse(localStorage.getItem('jokes') || '[]')).toEqual([]);
@@ -137,7 +142,7 @@ describe('JokeFacade', () => {
     facade.loadFavouritesFromLocalStorage();
 
     let favourites: JokeViewModel[] = [];
-    facade.favourites$.subscribe(f => favourites = f);
+    facade.favourites$.subscribe(f => (favourites = f));
 
     expect(favourites.length).toBe(1);
     expect(favourites[0].value).toBe('Funny joke');
@@ -149,7 +154,7 @@ describe('JokeFacade', () => {
     await new Promise(resolve => setTimeout(resolve, 10));
 
     let currentJokes: JokeViewModel[] = [];
-    facade.latestJokes$.subscribe(j => currentJokes = j);
+    facade.latestJokes$.subscribe(j => (currentJokes = j));
 
     facade.setFavourite(currentJokes[0], true);
 

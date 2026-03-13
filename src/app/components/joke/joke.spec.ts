@@ -16,7 +16,7 @@ describe('Joke', () => {
     updated_at: '2023-01-01',
     url: 'https://api.chucknorris.io/jokes/123',
     isFavourite: false,
-    visibleInStream: true
+    visibleInStream: true,
   };
 
   beforeEach(async () => {

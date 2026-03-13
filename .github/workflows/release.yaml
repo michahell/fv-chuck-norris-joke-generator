@@ -3,7 +3,7 @@ name: release
 on:
   workflow_dispatch:
   push:
-    branches: [ 'release' ]
+    branches: ['release']
 
 permissions:
   contents: write

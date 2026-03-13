@@ -20,7 +20,7 @@
 <div class="divider"></div>
 
 <div class="p-2 text-base-content rounded-md">
-  @for(joke of latestJokes(); track $index) {
+  @for (joke of latestJokes(); track $index) {
     @if (joke.visibleInStream) {
       <app-joke
         [joke]="joke"
@@ -46,4 +46,3 @@
     </div>
   </div>
 </dialog>
-

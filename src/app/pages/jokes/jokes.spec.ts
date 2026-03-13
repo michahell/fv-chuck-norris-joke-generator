@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import Jokes from './jokes';
 import { JokeFacade } from '../../services/joke-facade';
-import {BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { JokeViewModel } from '../../services/jokes.model';
-import {vi} from 'vitest';
+import { vi } from 'vitest';
 import { By } from '@angular/platform-browser';
 
 describe('Jokes', () => {
@@ -22,7 +22,7 @@ describe('Jokes', () => {
     updated_at: '',
     url: '',
     isFavourite: false,
-    visibleInStream: true
+    visibleInStream: true,
   };
 
   beforeEach(async () => {
@@ -32,14 +32,12 @@ describe('Jokes', () => {
       startGettingRandomJokes: vi.fn(),
       stopGettingRandomJokes: vi.fn(),
       getNumFavourites: vi.fn().mockReturnValue(0),
-      setFavourite: vi.fn()
+      setFavourite: vi.fn(),
     };
 
     await TestBed.configureTestingModule({
       imports: [Jokes],
-      providers: [
-        { provide: JokeFacade, useValue: facadeMock }
-      ]
+      providers: [{ provide: JokeFacade, useValue: facadeMock }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Jokes);

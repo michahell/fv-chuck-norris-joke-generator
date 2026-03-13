@@ -7,11 +7,11 @@ export const routes: Routes = [
   },
   {
     path: 'favourites',
-    loadComponent: () => import('./pages/favourites/favourites')
+    loadComponent: () => import('./pages/favourites/favourites'),
   },
   {
     path: '',
     redirectTo: '/jokes',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];

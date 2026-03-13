@@ -1,7 +1,7 @@
-import {inject, Injectable, isDevMode} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {catchError, map, Observable} from 'rxjs';
-import {JokeApiResponse} from './jokes.model';
+import { inject, Injectable, isDevMode } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
+import { JokeApiResponse } from './jokes.model';
 
 export const API_BASE_URL = 'https://api.chucknorris.io';
 
@@ -19,7 +19,7 @@ export class JokeService {
   getRandomJoke(): Observable<JokeApiResponse> {
     return this.#http.get<JokeApiResponse>(`${this.#corsProxiedBaseUrl}/jokes/random`).pipe(
       map((response: JokeApiResponse) => response),
-      catchError((error) => {
+      catchError(error => {
         console.error('Error fetching joke:', error);
         throw new Error('Failed to fetch joke. Please try again.');
       })

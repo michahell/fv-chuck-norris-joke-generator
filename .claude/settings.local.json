@@ -1,9 +1,6 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(ng generate:*)",
-      "Bash(npx ng:*)"
-    ]
+    "allow": ["Bash(ng generate:*)", "Bash(npx ng:*)"]
   },
   "outputStyle": "default"
 }

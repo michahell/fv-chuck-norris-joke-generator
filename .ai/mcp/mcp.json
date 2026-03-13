@@ -7,10 +7,7 @@
     "vitest": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "@djankies/vitest-mcp"
-      ],
+      "args": ["-y", "@djankies/vitest-mcp"],
       "env": {}
     }
   }
